@@ -11,6 +11,7 @@
 // Task 5: Handle and Respond with Data
 
 const express = require('express');
+const axios = require('axios');
 
 const app = express();
 const PORT = 3000;
@@ -19,13 +20,14 @@ const PORT = 3000;
 app.get('/api/fun-fact', async (req, res) => {
   try {
     // Ask the Useless Facts 
-    const response = await fetch('https://uselessfacts.jsph.pl/api/v2/facts/random');
+    const response = await axios.get('https://uselessfacts.jsph.pl/api/v2/facts/random');
+
 
     // Turn the answer into a JavaScript object
     const data = await response.json();
 
     // Send only the fact text, 
-    res.json({ fact: data.text });
+    res.json({ fact: response. data.text });
   } catch (error) {
     // Something got wrong, so send a simple error message
     res.status(500).json({ error: 'Could not fetch fun fact' });
